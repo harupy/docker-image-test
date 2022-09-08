@@ -8,11 +8,18 @@ jobs:
   push-images:
     runs-on: ubuntu-latest
     steps:
+      - name: Get tag
+        id: get-tag
+        run: |
+          tag=$(echo "${{ github.ref }}" | cut -d '/' -f 3)
+          version="${tag:1}"
+          echo "::set-output name=tag::$tag"
+          echo "::set-output name=version::$version"
       - uses: docker/build-push-action@v3
         with:
           push: true
           tags: |
             ghcr.io/harupy/docker-image-test:latest
-            ghcr.io/harupy/docker-image-test:${{ github.ref }}
+            ghcr.io/harupy/docker-image-test:${{ steps.get-tag.outputs.tag }}
           build-args: |
-            TAG=${{ github.ref }}
+            TAG=${{ steps.get-tag.outputs.version }}
