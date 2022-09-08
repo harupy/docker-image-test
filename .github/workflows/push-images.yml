@@ -22,4 +22,4 @@ jobs:
             ghcr.io/harupy/docker-image-test:latest
             ghcr.io/harupy/docker-image-test:${{ steps.get-tag.outputs.tag }}
           build-args: |
-            TAG=${{ steps.get-tag.outputs.version }}
+            VERSION=${{ steps.get-tag.outputs.version }}
