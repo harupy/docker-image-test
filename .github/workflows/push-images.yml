@@ -1,0 +1,18 @@
+name: Push images
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  push-images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: |
+            ghcr.io/harupy/docker-image-test:latest
+            ghcr.io/harupy/docker-image-test:${{ github.ref }}
+          build-args: |
+            TAG=${{ github.ref }}
