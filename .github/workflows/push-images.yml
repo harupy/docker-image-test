@@ -18,6 +18,7 @@ jobs:
       - uses: docker/build-push-action@v3
         with:
           push: true
+          github-token: ${{ secrets.GH_TOKEN }}
           tags: |
             ghcr.io/harupy/docker-image-test:latest
             ghcr.io/harupy/docker-image-test:${{ steps.get-tag.outputs.tag }}
