@@ -1,3 +1,3 @@
 FROM python:3.8
-ARG TAG
-RUN pip install "mlflow==${TAG:1}"
+ARG VERSION
+RUN pip install "mlflow==$VERSION"
