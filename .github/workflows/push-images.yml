@@ -15,10 +15,14 @@ jobs:
           version="${tag:1}"
           echo "::set-output name=tag::$tag"
           echo "::set-output name=version::$version"
+      - uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/build-push-action@v3
         with:
           push: true
-          github-token: ${{ secrets.GH_TOKEN }}
           tags: |
             ghcr.io/harupy/docker-image-test:latest
             ghcr.io/harupy/docker-image-test:${{ steps.get-tag.outputs.tag }}
